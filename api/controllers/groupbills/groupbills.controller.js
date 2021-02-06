@@ -1,4 +1,5 @@
 const db = require('../../../sequelize');
+const uploadFile = require('../../../services/files/uploadFile');
 const GroupBill = db.GroupBills;
 
 class GroupBillController {
@@ -6,11 +7,11 @@ class GroupBillController {
         //Validate group id and at least one type of bill.
         //Revise groupBill data
         const groupBill = {
-            sid: req.body.sid,
-            name: req.body.name
+            group_id: req.body.group_id,
+            default_bill_id: req.body.default_bill_id
         };
 
-        GroupBill.create(sample)
+        GroupBill.create(groupBill)
             .then(data => {
                 res.send(data);
             })
@@ -21,6 +22,39 @@ class GroupBillController {
             });
     }
 
+    uploadBillPDF(req, res) {
+        const id = req.params.id;
+    
+        if (!req.file) {
+          res.status(400).send('No file uploaded.');
+          return;
+        }
+      
+        // upload bill PDF
+        uploadFile(req.file)
+          .then(publicUrl => {
+            // update bill PDF with file url
+            GroupBill.update({ pdfBillRef: publicUrl }, {
+              where: { group_bill_id: id }
+            })
+            .then(num => {
+              if (num == 1) {
+                res.send({
+                  message: "The bill PDF has been updated successfully"
+                });
+              } else {
+                res.status(400).send({
+                  message: "Unfortunately this group bill could not be found, please double check the ID."
+                });
+              }
+            })
+          })
+          .catch(err => {
+            res.status(500).send({
+              message: "Unable to update this group bill with the bill PDF."
+            });
+          });
+      }
     findOne(req, res) {
         const id = req.params.id;
 
@@ -51,7 +85,7 @@ class GroupBillController {
         const id = req.params.id;
 
         GroupBill.update(req.body, {
-                where: { catid: id }
+                where: { group_bill_id: id }
             })
             .then(num => {
                 if (num == 1) {
@@ -75,7 +109,7 @@ class GroupBillController {
         const id = req.params.id;
 
         GroupBill.destroy({
-                where: { catid: id }
+                where: { group_bill_id: id }
             })
             .then(num => {
                 if (num == 1) {

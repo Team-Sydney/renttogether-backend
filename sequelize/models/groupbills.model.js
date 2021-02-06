@@ -5,6 +5,9 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       primaryKey: true
     },
+    pdfBillRef: {
+      type: Sequelize.STRING
+    }
     // group_id FK NOT NULL
     // default_bill_id FK
     // custom_bill_id FK
