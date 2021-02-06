@@ -18,7 +18,6 @@ class SampleController {
 
     Sample.create(sample)
       .then(data => {
-        console.log("Test2");
         res.send(data);
       }) 
       .catch(err => {

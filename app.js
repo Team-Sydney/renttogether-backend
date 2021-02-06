@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fs = require("fs");
+const path = require('path');
 
 require('dotenv').config();
 
@@ -17,8 +19,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./models");
 db.sequelize.sync({force:true}); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
 
-// Routes
-require("./routes/sample.routes")(app);
+// Auto generate routes from routes directory
+const routesDir = path.resolve(__dirname, "routes");
+const basename = path.basename(__filename);
+
+fs
+  .readdirSync(routesDir)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(file => {
+    require(path.join(routesDir, file))(app);
+  });
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
