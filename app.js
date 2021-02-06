@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require("fs");
 const path = require('path');
+const chalk = require('chalk');
 
 require('dotenv').config();
 
@@ -35,5 +36,7 @@ fs
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+    console.log(
+        `${chalk.green('Server is running on port:')} ${PORT}.`
+    );
 });
