@@ -3,26 +3,20 @@ const GroupBill = db.GroupBills;
 
 class GroupBillController {
     createGroupBill(req, res) {
-
-        if (!req.body.name) {
-            res.status(400).send({
-                message: "Please enter the name of the sample."
-            });
-            return;
-        }
-
-        const sample = {
+        //Validate group id and at least one type of bill.
+        //Revise groupBill data
+        const groupBill = {
             sid: req.body.sid,
             name: req.body.name
         };
 
-        Sample.create(sample)
+        GroupBill.create(sample)
             .then(data => {
                 res.send(data);
             })
             .catch(err => {
                 res.status(500).send({
-                    message: err.message || "An error occurred while creating the sample."
+                    message: err.message || "An error occurred while creating the group bill."
                 });
             });
     }
@@ -30,25 +24,25 @@ class GroupBillController {
     findOne(req, res) {
         const id = req.params.id;
 
-        Sample.findByPk(id)
+        GroupBill.findByPk(id)
             .then(data => {
                 res.send(data);
             })
             .catch(err => {
                 res.status(500).send({
-                    message: "Unfortunately we were unable to retrieve this sample."
+                    message: "Unfortunately we were unable to retrieve this group of bills."
                 });
             });
     }
 
     findAll(req, res) {
-        Sample.findAll()
+        GroupBill.findAll()
             .then(data => {
                 res.send(data);
             })
             .catch(err => {
                 res.status(500).send({
-                    message: err.message || 'Unfortunately we were unable to retrieve all samples.'
+                    message: err.message || 'Unfortunately we were unable to retrieve all group of bills.'
                 });
             });
     }
@@ -56,23 +50,23 @@ class GroupBillController {
     update(req, res) {
         const id = req.params.id;
 
-        Sample.update(req.body, {
+        GroupBill.update(req.body, {
                 where: { catid: id }
             })
             .then(num => {
                 if (num == 1) {
                     res.send({
-                        message: "The sample has been updated successfully"
+                        message: "The group of bills has been updated successfully"
                     });
                 } else {
                     res.send({
-                        message: "Unfortunately this sample could not be found, please double check the ID."
+                        message: "Unfortunately this group of bills could not be found, please double check the ID."
                     });
                 }
             })
             .catch(err => {
                 res.status(500).send({
-                    message: "Unable to delete this sample."
+                    message: "Unable to delete this group of bills."
                 })
             })
     }
@@ -80,24 +74,24 @@ class GroupBillController {
     delete(req, res) {
         const id = req.params.id;
 
-        Sample.destroy({
+        GroupBill.destroy({
                 where: { catid: id }
             })
             .then(num => {
                 if (num == 1) {
                     res.send({
-                        message: "The sample was deleted successfully!"
+                        message: "The group of bills was deleted successfully!"
                     });
                 } else {
                     res.send({
-                        message: "Unfortunately this sample could not be found, please double check the ID."
+                        message: "Unfortunately this group of bills could not be found, please double check the ID."
                     });
                 }
             })
             .catch(err => {
                 console.log(id)
                 res.status(500).send({
-                    message: "Unable to delete this sample."
+                    message: "Unable to delete this group of bills."
                 })
             })
     }
