@@ -1,3 +1,4 @@
 node_modules
 certs/cc-ca.crt
 .env
+serviceAccountKey.json
