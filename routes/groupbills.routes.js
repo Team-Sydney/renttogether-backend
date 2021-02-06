@@ -15,5 +15,5 @@ module.exports = (app) => {
 
     router.delete("/:id", controller.delete)
 
-    app.use('/api/samples', router)
+    app.use('/api/groupbills', router)
 }
