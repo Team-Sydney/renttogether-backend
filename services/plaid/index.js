@@ -47,11 +47,20 @@ function TestTokenInUse() {
 
 module.exports = {
 
-    requestTransaction(access_token) {
+    requestTransaction(access_token, params) {
         if (TestTokenInUse) {
-            return require('./transactions.js')(plaidClient, plaidTestToken);
+            return require('./transactions.js')(plaidClient, plaidTestToken, params);
         } else {
-            return require('./transactions.js')(plaidClient, access_token);
+            return require('./transactions.js')(plaidClient, access_token, params);
+        }
+    },
+
+    requestBalance(access_token) {
+        if (TestTokenInUse) {
+            return require('./balance.js')(plaidClient, plaidTestToken);
+        } else {
+            return require('./balance.js')(plaidClient, access_token);
         }
     }
+
 }
