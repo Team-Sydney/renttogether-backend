@@ -57,7 +57,7 @@ class SampleController {
         const id = req.params.id;
 
         Sample.update(req.body, {
-                where: { catid: id }
+                where: { sid: id }
             })
             .then(num => {
                 if (num == 1) {
@@ -81,7 +81,7 @@ class SampleController {
         const id = req.params.id;
 
         Sample.destroy({
-                where: { catid: id }
+                where: { sid: id }
             })
             .then(num => {
                 if (num == 1) {

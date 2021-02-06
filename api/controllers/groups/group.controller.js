@@ -48,7 +48,7 @@ class GroupController {
         const id = req.params.id;
 
         Group.update(req.body, {
-                where: { catid: id }
+                where: { group_id: id }
             })
             .then(num => {
                 if (num == 1) {
@@ -72,7 +72,7 @@ class GroupController {
         const id = req.params.id;
 
         Group.destroy({
-                where: { catid: id }
+                where: { group_id: id }
             })
             .then(num => {
                 if (num == 1) {
