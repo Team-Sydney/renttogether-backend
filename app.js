@@ -16,24 +16,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database
-const db = require("./models");
-db.sequelize.sync({force:true}); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
+const db = require("./sequelize");
+db.sequelize.sync({ force: true }); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
 
 // Auto generate routes from routes directory
 const routesDir = path.resolve(__dirname, "routes");
 const basename = path.basename(__filename);
 
 fs
-  .readdirSync(routesDir)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    require(path.join(routesDir, file))(app);
-  });
+    .readdirSync(routesDir)
+    .filter(file => {
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+    })
+    .forEach(file => {
+        require(path.join(routesDir, file))(app);
+    });
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is running on port ${PORT}.`);
 });
