@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require("../../cert/serviceAccountKey.json");
+const serviceAccount = require("../../certs/firebase_credentials.json");
 // Check if firebase admin has been initiated yet.
 if (admin.apps.length === 0) {
     admin.initializeApp({
