@@ -1,7 +1,7 @@
 # RentTogether.online
-<img src="https://i.imgur.com/r9ZAzzk.png" alt="Login" width="256">
-<img src="https://i.imgur.com/xkN3G1K.png" alt="Creating a group" width="256">
-<img src="https://i.imgur.com/IdsmRZ9.png" alt="Adding a bill" width="256">
+Home Screen           |  Creating a Group |  Add a Bill |
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://i.imgur.com/r9ZAzzk.png)  |  ![](https://i.imgur.com/xkN3G1K.png) |  ![](https://i.imgur.com/xkN3G1K.png)
 
 ## ✨Inspiration
 Our inspiration was ours and those around us living with roommates. When it comes to dividing expenses and making sure payments are on time, we find it difficult to keep track of dates and who is up-to-date on the bills.
