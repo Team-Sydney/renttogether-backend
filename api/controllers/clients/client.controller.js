@@ -8,6 +8,7 @@ class ClientController {
         const client = {
             client_id: req.body.uid,
             email: req.body.email,
+            profileURL: req.body.profileURL,
             registrationToken: req.body.registrationToken
         };
 
