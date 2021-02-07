@@ -1,5 +1,3 @@
-const { Client } = require("pg");
-
 function createRelationships(sequelize) {
     const { Groups, Clients, GroupMembers, GroupBills, DefaultBills, CustomBills } = sequelize.models;
 
