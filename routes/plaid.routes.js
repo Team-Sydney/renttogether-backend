@@ -35,6 +35,28 @@ module.exports = (app) => {
         })
     });
 
+    router.get("/link-token", (req, res) => {
+        const USER_ID = req.query.id;
+        plaidInstance.requestLinkToken(USER_ID)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+    });
+
+    router.post("/access-token", (req, res) => {
+        const PUBLIC_TOKEN = req.body.publicToken;
+        plaidInstance.requestPublicTokenExchange(PUBLIC_TOKEN)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+    })
+
     app.use('/api/plaid', router)
 
 }

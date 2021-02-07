@@ -47,20 +47,40 @@ function TestTokenInUse() {
 
 module.exports = {
 
-    requestTransaction(access_token, params) {
+    requestTransaction(accessToken, params) {
         if (TestTokenInUse) {
             return require('./transactions.js')(plaidClient, plaidTestToken, params);
         } else {
-            return require('./transactions.js')(plaidClient, access_token, params);
+            return require('./transactions.js')(plaidClient, accessToken, params);
         }
     },
 
-    requestBalance(access_token) {
+    requestBalance(accessToken) {
         if (TestTokenInUse) {
             return require('./balance.js')(plaidClient, plaidTestToken);
         } else {
-            return require('./balance.js')(plaidClient, access_token);
+            return require('./balance.js')(plaidClient, accessToken);
         }
+    },
+
+    requestLinkToken(clientId) {
+        if (TestTokenInUse) {
+            return require('./linkToken.js')(
+                plaidClient, 
+                plaidTestToken, 
+                clientId
+            );
+        } else {
+            return require('./linkToken.js')(
+                plaidClient, 
+                accessToken, 
+                clientId
+            );
+        }
+    },
+
+    requestPublicTokenExchange(publicToken) {
+        return require('./accessToken.js')(plaidClient, publicToken);
     }
 
 }
