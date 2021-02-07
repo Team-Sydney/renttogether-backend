@@ -7,23 +7,18 @@ if (admin.apps.length === 0) {
     });
 }
 
-module.exports = (token, msg) => {
+module.exports = (topic, msg) => {
     //Data we want to send the user
     let message = {
         data: {
             msg: msg,
-            time: '2:45'
         },
-        // Union field target can be only one of the following:
-        // token: string,
-        // topic: string,
-        // condition: string
-        token: token
+        topic: topic
     };
     admin.messaging().send(message) //message is the information we want to send the user
         .then((response) => {
             // Response is a message ID string.
-            console.log('Successfully sent message:', response);
+            console.log('Successfully sent message: ', response);
         })
         .catch((error) => {
             console.log('Error sending message:', error);

@@ -1,6 +1,7 @@
 const db = require('../../../sequelize');
 const uploadFile = require('../../../services/files/uploadFile');
 const GroupBill = db.GroupBills;
+const { sendNotificationByTopic } = require('../../../services/notifications/index');
 
 class GroupBillController {
     createGroupBill(req, res) {
@@ -11,8 +12,12 @@ class GroupBillController {
             default_bill_id: req.body.default_bill_id
         };
 
+        const topic = req.body.topic;
+        const msg = "Someone in your group added a new bill.";
+
         GroupBill.create(groupBill)
             .then(data => {
+                sendNotificationByTopic(topic, msg);
                 res.send(data);
             })
             .catch(err => {
@@ -24,37 +29,37 @@ class GroupBillController {
 
     uploadBillPDF(req, res) {
         const id = req.params.id;
-    
+
         if (!req.file) {
-          res.status(400).send('No file uploaded.');
-          return;
+            res.status(400).send('No file uploaded.');
+            return;
         }
-      
+
         // upload bill PDF
         uploadFile(req.file)
-          .then(publicUrl => {
-            // update bill PDF with file url
-            GroupBill.update({ pdfBillRef: publicUrl }, {
-              where: { group_bill_id: id }
+            .then(publicUrl => {
+                // update bill PDF with file url
+                GroupBill.update({ pdfBillRef: publicUrl }, {
+                        where: { group_bill_id: id }
+                    })
+                    .then(num => {
+                        if (num == 1) {
+                            res.send({
+                                message: "The bill PDF has been updated successfully"
+                            });
+                        } else {
+                            res.status(400).send({
+                                message: "Unfortunately this group bill could not be found, please double check the ID."
+                            });
+                        }
+                    })
             })
-            .then(num => {
-              if (num == 1) {
-                res.send({
-                  message: "The bill PDF has been updated successfully"
+            .catch(err => {
+                res.status(500).send({
+                    message: "Unable to update this group bill with the bill PDF."
                 });
-              } else {
-                res.status(400).send({
-                  message: "Unfortunately this group bill could not be found, please double check the ID."
-                });
-              }
-            })
-          })
-          .catch(err => {
-            res.status(500).send({
-              message: "Unable to update this group bill with the bill PDF."
             });
-          });
-      }
+    }
     findOne(req, res) {
         const id = req.params.id;
 
