@@ -58,29 +58,45 @@ class GroupController {
           .catch(err => {
             res.status(500).send({
               message:
-                err.message || 'Unfortunately we were unable to retrieve all Customers for this business.'
+                err.message || 'Unfortunately we were unable to retrieve the owner\'s groups.'
             });
         });
     }
         
 
 
-    async findGroupByClientId(req, res) {
+    findGroupByClientId(req, res) {
         const id = req.params.id;
 
-        const groupMembers = await GroupMember.findOne({ where: { client_id: id }});
+        console.log("ID:" + id)
 
-        console.log(groupMembers)
-        Group.findOne({where: { group_id: groupMembers.group_id }})
-            .then(data => {
-                res.send(data);
+        GroupMember.findOne({ 
+            where: { client_id: id }
+          })
+          .then(groupMember => {
+            return Group.findOne({
+                where: { group_id: groupMember.group_id },
+                include: [{
+                model: GroupMember,
+                where: { group_id: groupMember.group_id },
+                required: false,
+                include: [{
+                    model: UserClient
+                    }]
+                }]
             })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Unfortunately we were unable to retrieve this group."
-                });
+        })
+          .then(data => {
+            console.log(data)
+            res.send(data);
+          })
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || 'Unfortunately we were unable to retrieve the member\'s groups'
             });
-    }     
+        });
+    }  
 
     findOne(req, res) {
         const id = req.params.id;
