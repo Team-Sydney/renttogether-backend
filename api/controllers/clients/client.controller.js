@@ -3,7 +3,12 @@ const Client = db.Clients;
 
 class ClientController {
     createClient(req, res) {
-        Client.create()
+        const client = {
+            client_id: req.body.uid,
+            email: req.body.email
+        };
+
+        Client.create(client)
             .then(data => {
                 res.send(data);
             })
