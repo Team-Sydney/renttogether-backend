@@ -5,6 +5,7 @@ class ClientController {
     createClient(req, res) {
         const client = {
             client_id: req.body.uid,
+            profileURL: req.body.profileURL,
             email: req.body.email
         };
 

@@ -4,8 +4,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             primaryKey: true
         },
+        profileURL: {
+            type: Sequelize.STRING
+        },
         email: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
 
         }
     });
