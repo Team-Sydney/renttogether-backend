@@ -5,6 +5,9 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       primaryKey: true
     },
+    total_cost: {
+      type: Sequelize.FLOAT
+    },
     pdfBillRef: {
       type: Sequelize.STRING
     }
