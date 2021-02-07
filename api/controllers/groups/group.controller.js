@@ -4,10 +4,11 @@ const Group = db.Groups;
 class GroupController {
     createGroup(req, res) {
         const group = {
+            name: req.body.name,
             creator_id: req.body.creator_id,
             disabled: req.body.disabled
         };
-
+        
         Group.create(group)
             .then(data => {
                 res.send(data);
