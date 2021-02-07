@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         //creator_id FK
         disabled: {
             type: Sequelize.BOOLEAN
