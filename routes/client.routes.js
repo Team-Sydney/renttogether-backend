@@ -3,17 +3,17 @@ const controller = new ClientController();
 
 module.exports = (app) => {
 
-  let router = require("express").Router();
+    let router = require("express").Router();
 
-  router.post("/", controller.createClient);
+    router.post("/", controller.createClient);
 
-  router.get("/:id", controller.findOne)
+    router.get("/:id", controller.findOne);
 
-  router.get("/", controller.findAll)
+    router.get("/", controller.findAll);
 
-  router.put("/:id", controller.update)
+    router.put("/:id", controller.update);
 
-  router.delete("/:id", controller.delete)
+    router.delete("/:id", controller.delete);
 
-  app.use('/api/clients', router)
+    app.use('/api/clients', router);
 }

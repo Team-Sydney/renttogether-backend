@@ -5,10 +5,11 @@ class ClientController {
     createClient(req, res) {
         const client = {
             client_id: req.body.uid,
-            email: req.body.email
+            email: req.body.email,
+            registrationToken: req.body.registrationToken
         };
 
-        Client.create(client)
+        Client.upsert(client)
             .then(data => {
                 res.send(data);
             })

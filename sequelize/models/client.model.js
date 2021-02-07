@@ -6,7 +6,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         email: {
             type: Sequelize.STRING,
-
+        },
+        registrationToken: {
+            type: Sequelize.STRING,
         }
     });
 
