@@ -1,5 +1,6 @@
 const db = require('../../../sequelize');
 const Group = db.Groups;
+const GroupMember = db.GroupMembers;
 
 class GroupController {
     createGroup(req, res) {
@@ -12,6 +13,12 @@ class GroupController {
         Group.create(group)
             .then(data => {
                 res.send(data);
+
+                // Add group owner to the group as well
+                GroupMember.create({
+                    group_id: data.group_id,
+                    client_id: data.creator_id
+                });
             })
             .catch(err => {
                 res.status(500).send({

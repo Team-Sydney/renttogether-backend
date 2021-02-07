@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       primaryKey: true
     },
-    //creator_id FK
+    //client_id FK
     //group_id FK
   });
 
