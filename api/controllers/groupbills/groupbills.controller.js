@@ -9,7 +9,10 @@ class GroupBillController {
         //Revise groupBill data
         const groupBill = {
             group_id: req.body.group_id,
-            default_bill_id: req.body.default_bill_id
+            default_bill_id: req.body.default_bill_id,
+            total_cost: req.body.total_cost,
+            pdfBillRef: req.body.pdfBillRef,
+            custom_bill_id: req.body.custom_bill_id
         };
 
         const topic = req.body.topic;
