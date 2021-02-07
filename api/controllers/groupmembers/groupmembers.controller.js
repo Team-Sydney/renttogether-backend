@@ -3,20 +3,6 @@ const GroupMember = db.GroupMembers;
 const Client = db.Clients;
 
 class GroupMemberController {
-    async addGroupCreator(req, res) {
-      const groupMemberClient = await Client.findOne({ where: { client_id: req.body.creator_id }});
-
-      GroupMember.create({ client_id: groupMemberClient.client_id, group_id: req.body.group_id })
-          .then(data => {
-              res.send(data);
-          })
-          .catch(err => {
-              res.status(500).send({
-                  message: err.message || "An error occurred while adding a group member."
-              });
-          });
-    }
-
     async addGroupMember(req, res) {
         const groupMemberClient = await Client.findOne({ where: { email: req.body.email }});
 
