@@ -1,5 +1,7 @@
 const db = require('../../../sequelize');
 const Client = db.Clients;
+const Group = db.Groups;
+const GroupMember = db.GroupMembers;
 
 class ClientController {
     createClient(req, res) {
@@ -11,7 +13,7 @@ class ClientController {
 
         Client.upsert(client)
             .then(data => {
-                res.send(data);
+                res.send(data[0]);
             })
             .catch(err => {
                 res.status(500).send({

@@ -9,6 +9,10 @@ module.exports = (app) => {
 
   router.get("/:id", controller.findOne)
 
+  router.get("/ownergroup/:id", controller.findGroupByOwnerId)
+
+  router.get("/clientgroups/:id", controller.findGroupByClientId)
+
   router.get("/", controller.findAll)
 
   router.put("/:id", controller.update)
